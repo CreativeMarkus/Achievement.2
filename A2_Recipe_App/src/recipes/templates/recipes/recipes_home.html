@@ -1,13 +1,29 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 
 <head>
     <title>Recipe App Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        h1,
+        p {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Welcome to My Recipe App!</h1>
-    <p>This is the homepage of my Django Recipe Application.</p>
+    <h1 style="text-align:center">Welcome to My Recipe App</h1>
+
+    <p style="text-align:center">
+        Discover simple and delicious recipes.
+    </p>
+
+    <div style="text-align:center">
+        <img src="{% static 'recipes/images/welcome.jpg' %}" width="600">
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Recipe App Home</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'recipes/favicon.svg' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px 20px;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 2em;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 0;
+        }
+
+        .logo {
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            width: 300px;
+            height: auto;
+        }
+
+        .recipes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .recipe-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .recipe-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            margin-top: 0;
+        }
+
+        .recipe-card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .recipe-card a:hover {
+            color: #0056b3;
+        }
+
+        .cooking-time {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .cooking-time-label {
+            color: #007bff;
+            font-weight: 600;
+        }
+
+        .view-recipe-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white !important;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .view-recipe-btn:hover {
+            color: white !important;
+            background-color: #0056b3;
+        }
+
+        .view-recipe-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .no-recipes {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="{% static 'recipes/images/welcome.jpg' %}" alt="Recipe App Logo">
+        </div>
+        <div class="header-content">
+            <h1>Welcome to My Recipe App</h1>
+            <p>Discover simple and delicious recipes.</p>
+        </div>
+    </div>
+
+    <div class="recipes-container">
+        <h2>My Recipes:</h2>
+        {% if recipe_list %}
+        <ul class="recipes-grid">
+            {% for recipe in recipe_list %}
+            <li class="recipe-card">
+                {% if recipe.pic %}
+                <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}" class="recipe-image">
+                {% else %}
+                <div class="recipe-image"
+                    style="background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">No
+                    Image</div>
+                {% endif %}
+                <h3><a href="{% url 'recipe-detail' recipe.pk %}">{{ recipe.name }}</a></h3>
+                <a href="{% url 'recipe-detail' recipe.pk %}" class="view-recipe-btn">View Recipe</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-recipes">No recipes added yet. Start by adding your first recipe!</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

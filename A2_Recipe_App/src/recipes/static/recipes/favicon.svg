@@ -1,0 +1,37 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle gradient from orange to teal -->
+  <defs>
+    <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8873D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2C6B7D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#circleGradient)" stroke-width="12"/>
+  
+  <!-- Chef hat -->
+  <g transform="translate(100, 50)">
+    <!-- Hat top -->
+    <ellipse cx="0" cy="-8" rx="14" ry="10" fill="#E8873D"/>
+    <!-- Hat band -->
+    <rect x="-16" y="2" width="32" height="8" fill="#2C6B7D" rx="2"/>
+  </g>
+  
+  <!-- Spoon -->
+  <g transform="translate(60, 100)">
+    <path d="M 0 0 Q -15 15 -20 35 Q -18 40 -10 38 Q -5 20 0 10 Z" fill="#E8873D" stroke="#E8873D" stroke-width="2"/>
+  </g>
+  
+  <!-- Fork -->
+  <g transform="translate(130, 100) rotate(15)">
+    <rect x="-3" y="0" width="6" height="35" fill="#2C6B7D"/>
+    <!-- Tines -->
+    <rect x="-12" y="35" width="4" height="15" fill="#2C6B7D" rx="2"/>
+    <rect x="-4" y="35" width="4" height="15" fill="#2C6B7D" rx="2"/>
+    <rect x="4" y="35" width="4" height="15" fill="#2C6B7D" rx="2"/>
+  </g>
+  
+  <!-- Connecting circle/bowl shape -->
+  <circle cx="100" cy="115" r="25" fill="none" stroke="#E8873D" stroke-width="6"/>
+</svg>

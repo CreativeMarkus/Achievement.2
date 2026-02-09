@@ -1,0 +1,6 @@
+<!doctype html>
+<h1>Recipes</h1>
+
+{% for recipe in object_list %}
+<a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a><br>
+{% endfor %}
