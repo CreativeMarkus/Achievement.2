@@ -1,0 +1,282 @@
+{% extends 'recipes/base.html' %}
+{% load static %}
+
+{% block title %}Search Recipes{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <h1>Search for Recipes</h1>
+    <hr>
+
+    <!-- Search Form -->
+    <div class="form-container">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.recipe_name }}
+                <label for="id_recipe_name">Recipe Name</label>
+            </div>
+
+            <div class="form-group">
+                {{ form.cooking_time }}
+                <label for="id_cooking_time">Max Cooking Time (minutes)</label>
+            </div>
+
+            <div class="form-group">
+                {{ form.chart_type }}
+                <label for="id_chart_type">Select Chart Type</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="?show_all=true" class="btn btn-secondary">Show All Recipes</a>
+        </form>
+    </div>
+
+    <br>
+
+    <!-- Display Results -->
+    {% if search_results %}
+    <div class="results-container">
+        <h2>Search Results ({{ search_results.count }} recipes found)</h2>
+
+        <!-- Results Table -->
+        <div class="table-container">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Recipe Name</th>
+                        <th>Cooking Time (min)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recipe in search_results %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'recipes:recipe-detail' recipe.pk %}" class="recipe-link">
+                                {{ recipe.name }}
+                            </a>
+                        </td>
+                        <td>{{ recipe.cooking_time }}</td>
+                        <td>
+                            <a href="{% url 'recipes:recipe-detail' recipe.pk %}" class="btn-action">View Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Display Chart -->
+        {% if chart %}
+        <div class="chart-container">
+            <h3>Recipe Analytics</h3>
+            <img src="data:image/png;base64,{{ chart|safe }}" alt="Recipe Chart" class="chart-image">
+        </div>
+        {% endif %}
+    </div>
+    {% elif request.method == 'POST' %}
+    <div class="no-results">
+        <h3>No recipes found matching your criteria.</h3>
+        <p>Try adjusting your search filters or <a href="?show_all=true">view all recipes</a>.</p>
+    </div>
+    {% else %}
+    <div class="info-message">
+        <p>Enter your search criteria above to find recipes, or click "Show All Recipes" to view everything.</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .content-container {
+        margin-left: 280px;
+        padding: 40px;
+        flex: 1;
+    }
+
+    .content-container h1 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 2em;
+    }
+
+    .form-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #4CAF50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #45a049;
+    }
+
+    .btn-secondary {
+        background-color: #2196F3;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        padding: 10px 20px;
+    }
+
+    .btn-secondary:hover {
+        background-color: #0b7dda;
+    }
+
+    .results-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .results-container h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        margin-bottom: 30px;
+    }
+
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .results-table thead {
+        background-color: #f9f9f9;
+    }
+
+    .results-table th {
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+        color: #333;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .results-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .results-table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .recipe-link {
+        color: #4CAF50;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .recipe-link:hover {
+        text-decoration: underline;
+    }
+
+    .btn-action {
+        background-color: #2196F3;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9em;
+    }
+
+    .btn-action:hover {
+        background-color: #0b7dda;
+    }
+
+    .chart-container {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 2px solid #eee;
+    }
+
+    .chart-container h3 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 1.3em;
+    }
+
+    .chart-image {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        background-color: #fafafa;
+    }
+
+    .no-results,
+    .info-message {
+        background-color: #f0f7ff;
+        border-left: 4px solid #2196F3;
+        padding: 20px;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    .no-results h3,
+    .info-message p {
+        color: #333;
+    }
+
+    .no-results a {
+        color: #2196F3;
+        text-decoration: none;
+    }
+
+    .no-results a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
