@@ -12,7 +12,7 @@ def logout_success_view(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('recipes.urls')),
+    path('', include('recipes.urls', namespace='recipes')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('logout-success/', logout_success_view, name='logout-success'),

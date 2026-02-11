@@ -184,20 +184,11 @@
         .nav-bar a:hover {
             background-color: #c82333;
         }
-
-        .home-link {
-            background-color: #007bff;
-        }
-
-        .home-link:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 
 <body>
     <div class="nav-bar">
-        <a href="/" class="home-link">Home</a>
         <a href="{% url 'logout' %}">Logout</a>
     </div>
     <div class="header">
@@ -223,8 +214,8 @@
                     style="background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">No
                     Image</div>
                 {% endif %}
-                <h3><a href="{% url 'recipe-detail' recipe.pk %}">{{ recipe.name }}</a></h3>
-                <a href="{% url 'recipe-detail' recipe.pk %}" class="view-recipe-btn">View Recipe</a>
+                <h3><a href="{% url 'recipes:recipe-detail' recipe.pk %}">{{ recipe.name }}</a></h3>
+                <a href="{% url 'recipes:recipe-detail' recipe.pk %}" class="view-recipe-btn">View Recipe</a>
             </li>
             {% endfor %}
         </ul>
