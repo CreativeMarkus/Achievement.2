@@ -11,17 +11,62 @@
         p {
             font-family: 'Roboto', sans-serif;
         }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .login-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .login-link:hover {
+            background-color: #45a049;
+        }
+
+        .content {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 
 <body>
-    <h1 style="text-align:center">Welcome to My Recipe App</h1>
+    <div class="header">
+        <h1 style="text-align:center; flex: 1;">Welcome to My Recipe App</h1>
+        <a href="{% url 'login' %}" class="login-link">Login</a>
+    </div>
 
-    <p style="text-align:center">
-        Discover simple and delicious recipes.
-    </p>
-
-    <div style="text-align:center">
+    <div class="content">
+        <p>Discover simple and delicious recipes.</p>
         <img src="{% static 'recipes/images/welcome.jpg' %}" width="600">
     </div>
 </body>

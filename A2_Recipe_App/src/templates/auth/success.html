@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Recipe App - Logged Out</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        h1,
+        p {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .success-message {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 3px;
+            color: #2e7d32;
+        }
+
+        .links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        .home-link {
+            background-color: #2196F3;
+        }
+
+        .home-link:hover {
+            background-color: #0b7dda;
+        }
+
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>✓ You've Successfully Logged Out</h1>
+
+        <div class="success-message">
+            <p>Thank you for using our Recipe App! Your session has been safely ended.</p>
+        </div>
+
+        <p>We hope you enjoyed exploring our delicious recipes. Whether you're a cooking enthusiast looking for new
+            meal ideas or just browsing for inspiration, we're glad to have you here!</p>
+
+        <p><strong>What would you like to do next?</strong></p>
+
+        <div class="links">
+            <a href="{% url 'login' %}">Log Back In</a>
+            <a href="/" class="home-link">Return to Home</a>
+        </div>
+
+        <hr>
+
+        <p style="font-size: 14px; color: #999;">
+            Remember to always save your favorite recipes and check back soon for new additions!
+        </p>
+    </div>
+</body>
+
+</html>

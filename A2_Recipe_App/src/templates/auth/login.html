@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Recipe App - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body,
+        h1,
+        p {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        {% comment %}
+        check for error message
+        {% endcomment %}
+        {% if error_message %}
+        <div class="error-message">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        {% comment %}
+        print form
+        {% endcomment %}
+        <form action="" method="POST">
+            {% comment %}
+            add Django security token
+            {% endcomment %}
+            {% csrf_token %}
+
+            {% comment %}
+            print form received from view
+            {% endcomment %}
+            {{ form }}
+
+            {% comment %}
+            add button
+            {% endcomment %}
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+
+</html>
