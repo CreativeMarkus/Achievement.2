@@ -173,15 +173,24 @@
         .nav-bar a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #dc3545;
+            background-color: #4CAF50;
             color: white;
             text-decoration: none;
             border-radius: 3px;
             font-weight: 500;
+            font-size: 1em;
             transition: background-color 0.3s;
         }
 
         .nav-bar a:hover {
+            background-color: #45a049;
+        }
+
+        .nav-bar a.logout-btn {
+            background-color: #dc3545;
+        }
+
+        .nav-bar a.logout-btn:hover {
             background-color: #c82333;
         }
     </style>
@@ -189,7 +198,9 @@
 
 <body>
     <div class="nav-bar">
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'recipes:recipe-search' %}">Search Recipes</a>
+        <a href="{% url 'recipes:recipe-search' %}?show_all=true">Show All Recipes</a>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
     </div>
     <div class="header">
         <div class="logo">
