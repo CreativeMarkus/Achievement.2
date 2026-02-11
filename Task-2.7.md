@@ -140,6 +140,45 @@ OK
 - `/recipes/<id>/` → Recipe detail page (authenticated)
 - `/accounts/logout/` → Logout
 
+### Example Search Scenarios:
+
+**Scenario 1: Search by Recipe Name**
+- User enters "Pasta" in search field
+- Form submits via POST request
+- View filters recipes using: `Recipe.objects.filter(name__icontains='Pasta')`
+- Results show: Spaghetti Carbonara, Chicken Pasta (partial match)
+- Chart displays based on selected type (bar/pie/line)
+
+**Scenario 2: Search by Cooking Time**
+- User enters "30" in cooking time field
+- View filters: `Recipe.objects.filter(cooking_time__lte=30)`
+- Results show all recipes with ≤ 30 minute cooking time
+- Caesar Salad (10), Pad Thai (25), Spaghetti Carbonara (20)
+
+**Scenario 3: Combined Search**
+- User enters "Cake" and sets cooking time to "50"
+- Both filters applied: name filter AND cooking time filter
+- Results show: Chocolate Cake (45 minutes matches ≤50)
+
+**Scenario 4: Show All**
+- User clicks "Show All Recipes" button
+- View retrieves all recipes without filters
+- Default bar chart displays
+- User can browse entire recipe collection
+
+### Search Results Display:
+```
+Search Results (2 recipes found)
+┌─────────────────────────────────────────┐
+│ Recipe Name        │ Cooking Time │ Actions  │
+├──────────────────────────────────────────┤
+│ Spaghetti Carbonara│ 20           │ Details  │
+│ Chicken Pasta      │ 35           │ Details  │
+└──────────────────────────────────────────┘
+
+[Chart Image - Bar/Pie/Line based on selection]
+```
+
 ---
 
 ## Key Implementation Notes:
