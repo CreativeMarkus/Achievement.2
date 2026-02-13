@@ -8,8 +8,7 @@ from recipes.models import Recipe
 from django.core.files.base import ContentFile
 from pathlib import Path
 
-# Clear existing recipes
-Recipe.objects.all().delete()
+# Only add recipes that don't already exist (don't delete existing ones)
 
 # Get the recipes static folder
 recipes_folder = Path(__file__).parent / 'recipes' / 'static' / 'recipes' / 'images'
@@ -30,9 +29,14 @@ recipes_data = [
 for recipe_data in recipes_data:
     image_filename = recipe_data.pop("image")
     
-    # Set pic directly to the filename (matches files in media/ committed to git)
-    recipe_data['pic'] = image_filename
-    recipe = Recipe.objects.create(**recipe_data)
-    print(f"Created recipe: {recipe.name} with image: {image_filename}")
+    # Use get_or_create to avoid duplicates and preserve manually added recipes
+    recipe, created = Recipe.objects.get_or_create(
+        name=recipe_data['name'],
+        defaults={**recipe_data, 'pic': image_filename}
+    )
+    if created:
+        print(f"Created recipe: {recipe.name} with image: {image_filename}")
+    else:
+        print(f"Recipe already exists: {recipe.name} (skipped)")
 
-print("Recipe data created successfully!")
+print("Recipe data populated successfully!")
