@@ -12,22 +12,37 @@
         }
 
         .nav-bar {
-            background-color: #333;
-            padding: 15px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 15px 20px;
+            background-color: #f5f5f5;
+            margin-bottom: 20px;
+            border-radius: 4px;
         }
 
         .nav-bar a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            border-radius: 3px;
             font-weight: 500;
+            font-size: 1em;
+            transition: background-color 0.3s;
         }
 
         .nav-bar a:hover {
-            color: #4CAF50;
+            background-color: #45a049;
+        }
+
+        .nav-bar a.logout-btn {
+            background-color: #dc3545;
+        }
+
+        .nav-bar a.logout-btn:hover {
+            background-color: #c82333;
         }
 
         .container {
@@ -107,11 +122,10 @@
 
 <body>
     <div class="nav-bar">
-        <h2 style="color: white; margin: 0;">Recipe App</h2>
-        <div>
-            <a href="{% url 'recipes:list' %}">Back to Recipes</a>
-            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
-        </div>
+        <a href="{% url 'recipes:recipe-search' %}">Search Recipes</a>
+        <a href="{% url 'recipes:recipe-search' %}?show_all=true">Show All Recipes</a>
+        <a href="{% url 'recipes:list' %}">Back to Recipes</a>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
     </div>
 
     <div class="container">
