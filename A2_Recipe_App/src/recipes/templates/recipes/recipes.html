@@ -303,7 +303,7 @@
                     <a href="{% url 'recipes:recipe-edit' recipe.pk %}" class="edit-recipe-btn" title="Edit Recipe"><i
                             class="fas fa-pencil"></i></a>
                     <a href="{% url 'recipes:recipe-delete' recipe.pk %}" class="delete-recipe-btn"
-                        title="Delete Recipe"><i class="fas fa-times"></i></a>
+                        title="Delete Recipe" onclick="return confirm('Are you sure you want to delete this recipe?')"><i class="fas fa-times"></i></a>
                     {% endif %}
                 </div>
             </li>
