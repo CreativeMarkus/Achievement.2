@@ -118,8 +118,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files - serve from recipes static folder where existing images are stored
-MEDIA_URL = '/static/recipes/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'recipes', 'static', 'recipes')
+MEDIA_URL = '/static/recipes/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'recipes', 'static', 'recipes', 'images')
 
 # Logging configuration
 LOGGING = {
