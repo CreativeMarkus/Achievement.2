@@ -10,25 +10,21 @@ from django.contrib.auth.models import User
 
 print("\n=== Setting Up User Accounts ===\n")
 
-# Setup mentorCF superuser
+# Delete and recreate mentorCF superuser
 if User.objects.filter(username='mentorCF').exists():
-    user = User.objects.get(username='mentorCF')
-    user.set_password('Ment0r@CareerF0undry')
-    user.save()
-    print("✅ Updated mentorCF password")
-else:
-    User.objects.create_superuser('mentorCF', 'mentor@careerfoundry.com', 'Ment0r@CareerF0undry')
-    print("✅ Created mentorCF superuser")
+    User.objects.filter(username='mentorCF').delete()
+    print("✅ Deleted existing mentorCF")
 
-# Setup Markus superuser/staff user
+User.objects.create_superuser('mentorCF', 'mentor@careerfoundry.com', 'Ment0r@CareerF0undry')
+print("✅ Created mentorCF superuser")
+
+# Delete and recreate Markus superuser
 if User.objects.filter(username='Markus').exists():
-    user = User.objects.get(username='Markus')
-    user.set_password('Ment0r@CareerF0undry')
-    user.save()
-    print("✅ Updated Markus password")
-else:
-    User.objects.create_superuser('Markus', 'markus@careerfoundry.com', 'Ment0r@CareerF0undry')
-    print("✅ Created Markus superuser")
+    User.objects.filter(username='Markus').delete()
+    print("✅ Deleted existing Markus")
+
+User.objects.create_superuser('Markus', 'markus@careerfoundry.com', 'Ment0r@CareerF0undry')
+print("✅ Created Markus superuser")
 
 print("\n=== User Setup Complete ===\n")
 print("Login credentials:")
