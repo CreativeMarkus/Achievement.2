@@ -166,28 +166,33 @@
             gap: 10px;
             flex-wrap: wrap;
             margin-top: 10px;
+            align-items: stretch;
         }
 
         .edit-recipe-btn,
         .delete-recipe-btn {
-            flex: 1;
-            min-width: 80px;
-            padding: 12px 16px;
+            padding: 12px 24px;
             text-align: center;
             text-decoration: none;
-            border-radius: 3px;
-            font-weight: 500;
-            font-size: 1.2em;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1em;
             transition: background-color 0.3s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            color: white !important;
         }
 
         .edit-recipe-btn {
             background-color: #2196F3;
-            color: white;
+            color: white !important;
+        }
+
+        .edit-recipe-btn i,
+        .delete-recipe-btn i {
+            color: white !important;
         }
 
         .edit-recipe-btn:hover {
@@ -196,7 +201,7 @@
 
         .delete-recipe-btn {
             background-color: #f44336;
-            color: white;
+            color: white !important;
         }
 
         .delete-recipe-btn:hover {
