@@ -8,15 +8,30 @@ django.setup()
 
 from django.contrib.auth.models import User
 
-# Update Markus password
-user = User.objects.get(username='Markus')
-user.set_password('Ment0r@CareerF0undry')
-user.save()
-print(f"✅ Updated password for user: {user.username}")
+print("\n=== Setting Up User Accounts ===\n")
 
-# Create mentorCF as superuser if it doesn't exist
-if not User.objects.filter(username='mentorCF').exists():
+# Setup mentorCF superuser
+if User.objects.filter(username='mentorCF').exists():
+    user = User.objects.get(username='mentorCF')
+    user.set_password('Ment0r@CareerF0undry')
+    user.save()
+    print("✅ Updated mentorCF password")
+else:
     User.objects.create_superuser('mentorCF', 'mentor@careerfoundry.com', 'Ment0r@CareerF0undry')
     print("✅ Created mentorCF superuser")
+
+# Setup Markus superuser/staff user
+if User.objects.filter(username='Markus').exists():
+    user = User.objects.get(username='Markus')
+    user.set_password('Ment0r@CareerF0undry')
+    user.save()
+    print("✅ Updated Markus password")
 else:
-    print("✅ mentorCF user already exists")
+    User.objects.create_superuser('Markus', 'markus@careerfoundry.com', 'Ment0r@CareerF0undry')
+    print("✅ Created Markus superuser")
+
+print("\n=== User Setup Complete ===\n")
+print("Login credentials:")
+print("  Username: mentorCF or Markus")
+print("  Password: Ment0r@CareerF0undry")
+print()

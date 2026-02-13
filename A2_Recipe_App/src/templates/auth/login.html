@@ -87,19 +87,14 @@
         print form
         {% endcomment %}
         <form action="" method="POST">
-            {% comment %}
-            add Django security token
-            {% endcomment %}
             {% csrf_token %}
 
-            {% comment %}
-            print form received from view
-            {% endcomment %}
-            {{ form }}
+            <label for="id_username">Username:</label>
+            <input type="text" id="id_username" name="username" required>
 
-            {% comment %}
-            add button
-            {% endcomment %}
+            <label for="id_password">Password:</label>
+            <input type="password" id="id_password" name="password" required>
+
             <button type="submit">Login</button>
         </form>
     </div>
