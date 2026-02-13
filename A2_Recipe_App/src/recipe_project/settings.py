@@ -117,8 +117,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files (User uploaded content)
-MEDIA_URL = 'media/'
+# Media files (User uploaded content) - served from static folder on Heroku
+MEDIA_URL = 'static/recipes/images/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'recipes', 'static', 'recipes', 'images')
 
