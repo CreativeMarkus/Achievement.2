@@ -15,11 +15,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='recipe',
-            name='author',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='recipe',
             name='created_at',
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
@@ -27,6 +22,11 @@ class Migration(migrations.Migration):
             model_name='recipe',
             name='updated_at',
             field=models.DateTimeField(auto_now=True),
+        ),
+        migrations.AddField(
+            model_name='recipe',
+            name='author',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterModelOptions(
             name='recipe',
