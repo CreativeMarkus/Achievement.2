@@ -117,12 +117,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files (User uploaded content)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'media')
-
-# Allow WhiteNoise to serve media files
-WHITENOISE_KEEP_ALIVE_TIMEOUT = 5
+# Media files (User uploaded content) - served through static files
+MEDIA_URL = '/static/recipes/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'recipes')
 
 # Logging configuration
 LOGGING = {
