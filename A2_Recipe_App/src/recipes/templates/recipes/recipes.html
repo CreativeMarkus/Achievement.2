@@ -153,6 +153,52 @@
             background-color: #0056b3;
         }
 
+        .recipe-author {
+            font-size: 0.9em;
+            color: #666;
+            margin: 8px 0;
+            font-style: italic;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .edit-recipe-btn,
+        .delete-recipe-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 3px;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+
+        .edit-recipe-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .edit-recipe-btn:hover {
+            background-color: #0b7dda;
+        }
+
+        .delete-recipe-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .delete-recipe-btn:hover {
+            background-color: #da190b;
+        }
+
         .no-recipes {
             text-align: center;
             padding: 40px;
@@ -186,6 +232,15 @@
             background-color: #45a049;
         }
 
+        .nav-bar a.create-btn {
+            background-color: #2196F3;
+            order: -1;
+        }
+
+        .nav-bar a.create-btn:hover {
+            background-color: #0b7dda;
+        }
+
         .nav-bar a.logout-btn {
             background-color: #dc3545;
         }
@@ -198,6 +253,7 @@
 
 <body>
     <div class="nav-bar">
+        <a href="{% url 'recipes:recipe-create' %}" class="create-btn">+ Add New Recipe</a>
         <a href="{% url 'recipes:recipe-search' %}">Search Recipes</a>
         <a href="{% url 'recipes:recipe-search' %}?show_all=true">Show All Recipes</a>
         <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
@@ -226,7 +282,14 @@
                     Image</div>
                 {% endif %}
                 <h3><a href="{% url 'recipes:recipe-detail' recipe.pk %}">{{ recipe.name }}</a></h3>
-                <a href="{% url 'recipes:recipe-detail' recipe.pk %}" class="view-recipe-btn">View Recipe</a>
+                <p class="recipe-author">by {{ recipe.author.username }}</p>
+                <div class="recipe-actions">
+                    <a href="{% url 'recipes:recipe-detail' recipe.pk %}" class="view-recipe-btn">View Recipe</a>
+                    {% if user == recipe.author %}
+                    <a href="{% url 'recipes:recipe-edit' recipe.pk %}" class="edit-recipe-btn">Edit</a>
+                    <a href="{% url 'recipes:recipe-delete' recipe.pk %}" class="delete-recipe-btn">Delete</a>
+                    {% endif %}
+                </div>
             </li>
             {% endfor %}
         </ul>

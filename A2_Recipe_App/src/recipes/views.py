@@ -1,10 +1,11 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 from django.db.models import Q
 import pandas as pd
 from .models import Recipe
-from .forms import RecipeSearchForm
+from .forms import RecipeSearchForm, RecipeForm
 from .utils import prepare_recipe_data, get_chart
 
 def home(request):
@@ -82,3 +83,48 @@ def recipe_search(request):
     }
     
     return render(request, 'recipes/recipe_search.html', context)
+
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+    """View for creating a new recipe"""
+    model = Recipe
+    form_class = RecipeForm
+    template_name = 'recipes/recipe_form.html'
+    success_url = reverse_lazy('recipes:list')
+    
+    def form_valid(self, form):
+        # Set the author to the current user
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """View for editing a recipe (only author can edit)"""
+    model = Recipe
+    form_class = RecipeForm
+    template_name = 'recipes/recipe_form.html'
+    success_url = reverse_lazy('recipes:list')
+    
+    def test_func(self):
+        # Only allow the author to edit
+        recipe = self.get_object()
+        return self.request.user == recipe.author
+    
+    def handle_no_permission(self):
+        return redirect('recipes:list')
+
+
+class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """View for deleting a recipe (only author can delete)"""
+    model = Recipe
+    template_name = 'recipes/recipe_confirm_delete.html'
+    success_url = reverse_lazy('recipes:list')
+    
+    def test_func(self):
+        # Only allow the author to delete
+        recipe = self.get_object()
+        return self.request.user == recipe.author
+    
+    def handle_no_permission(self):
+        return redirect('recipes:list')
+

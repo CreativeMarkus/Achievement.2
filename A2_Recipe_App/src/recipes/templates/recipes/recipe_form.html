@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>{% if form.instance.pk %}Edit Recipe{% else %}Add Recipe{% endif %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .nav-bar {
+            background-color: #333;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .nav-bar a:hover {
+            color: #4CAF50;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .cancel-btn {
+            background-color: #666;
+            margin-top: 10px;
+        }
+
+        .cancel-btn:hover {
+            background-color: #555;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <h2 style="color: white; margin: 0;">Recipe App</h2>
+        <div>
+            <a href="{% url 'recipes:list' %}">Back to Recipes</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>{% if form.instance.pk %}Edit Recipe{% else %}Add New Recipe{% endif %}</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="error-message">
+                    {% for error in field.errors %}
+                    {{ error }}<br>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit">
+                {% if form.instance.pk %}Update Recipe{% else %}Add Recipe{% endif %}
+            </button>
+
+            <a href="{% url 'recipes:list' %}" style="text-decoration: none;">
+                <button type="button" class="cancel-btn">Cancel</button>
+            </a>
+        </form>
+    </div>
+</body>
+
+</html>
