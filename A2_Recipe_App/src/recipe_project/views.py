@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import logging
 
 # Django authentication libraries
 from django.contrib.auth import authenticate, login, logout
@@ -6,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 # Django Form for authentication
 from django.contrib.auth.forms import AuthenticationForm
 
+logger = logging.getLogger(__name__)
 
 # define a function view called login_view that takes a request from user
 def login_view(request):
@@ -25,14 +27,21 @@ def login_view(request):
             username = form.cleaned_data.get('username')  # read username
             password = form.cleaned_data.get('password')  # read password
 
+            logger.info(f"Login attempt for user: {username}")
+            
             # use Django authenticate function to validate the user
             user = authenticate(username=username, password=password)
             if user is not None:  # if user is authenticated
+                logger.info(f"Authentication successful for user: {username}")
                 # then use pre-defined Django function to login
                 login(request, user)
                 return redirect('recipes:list')  # & send the user to desired page
+            else:
+                logger.warning(f"Authentication failed for user: {username}")
+                error_message = 'Invalid username or password'
         else:  # in case of error
-            error_message = 'Oops.. something went wrong'  # print error message
+            logger.error(f"Form validation failed. Errors: {form.errors}")
+            error_message = f'Form error: {form.errors}'  # print error message
 
     # prepare data to send from view to template
     context = {
