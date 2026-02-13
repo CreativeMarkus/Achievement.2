@@ -29,17 +29,10 @@ recipes_data = [
 
 for recipe_data in recipes_data:
     image_filename = recipe_data.pop("image")
-    image_path = recipes_folder / image_filename
     
-    # Create recipe without image first
+    # Set pic directly to the filename (matches files in media/ committed to git)
+    recipe_data['pic'] = image_filename
     recipe = Recipe.objects.create(**recipe_data)
-    
-    # If image exists, add it to the recipe
-    if image_path.exists():
-        with open(image_path, 'rb') as img_file:
-            recipe.pic.save(image_filename, ContentFile(img_file.read()), save=True)
-        print(f"Created recipe: {recipe.name} with image: {image_filename}")
-    else:
-        print(f"Created recipe: {recipe.name} (image not found)")
+    print(f"Created recipe: {recipe.name} with image: {image_filename}")
 
 print("Recipe data created successfully!")
