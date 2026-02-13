@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-dev-key-change
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['my-recipe-app.herokuapp.com']
+ALLOWED_HOSTS = ['my-recipe-app-6105574f7d6e.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
