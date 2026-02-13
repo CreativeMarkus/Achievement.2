@@ -117,9 +117,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files - use static URL for Heroku compatibility with WhiteNoise
+# Media files - serve from recipes static folder where existing images are stored
 MEDIA_URL = '/static/recipes/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'recipes')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'recipes', 'static', 'recipes')
 
 # Logging configuration
 LOGGING = {
